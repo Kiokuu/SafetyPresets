@@ -33,7 +33,7 @@ namespace SafetyPresets
                     tempReturnList.Add((preset.settingsPresetNum.ToString(),preset.settingsPresetName));
                 }    
             }
-            catch(Exception e)
+            catch
             {
                 MelonLogger.Msg("[NotAnError] -> No presets to populate dropdowns");
             }

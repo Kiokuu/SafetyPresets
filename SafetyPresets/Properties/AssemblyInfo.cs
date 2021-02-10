@@ -4,17 +4,17 @@ using System.Runtime.InteropServices;
 using MelonLoader;
 
 // MelonLoader
-[assembly: MelonInfo(typeof(SafetyPresets.Main), "Safety Presets", "0.01", "死神「Shinigami」", "https://github.com/Kiokuu")]
+[assembly: MelonInfo(typeof(SafetyPresets.Main), "Safety-Presets", "v0.01", "死神#6938", "https://github.com/Kiokuu")]
 [assembly: MelonGame("VRChat", "VRChat")]
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SafetyPresets")]
+[assembly: AssemblyTitle("Safety-Presets")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SafetyPresets")]
+[assembly: AssemblyProduct("Safety-Presets")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

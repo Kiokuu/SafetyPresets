@@ -32,11 +32,9 @@ namespace SafetyPresets
                 foreach(Classes.SettingsPreset preset in ValidPresetList()){
                     tempReturnList.Add((preset.settingsPresetNum.ToString(),preset.settingsPresetName));
                 }    
-                MelonLogger.Msg(tempReturnList.Count);
             }
             catch(Exception e)
             {
-                MelonLogger.Msg(e.StackTrace);
                 MelonLogger.Msg("[NotAnError] -> No presets to populate dropdowns");
             }
             return tempReturnList;

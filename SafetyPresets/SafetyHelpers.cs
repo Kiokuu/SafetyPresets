@@ -14,7 +14,7 @@ namespace SafetyPresets
 {
     public static class Helpers
     {
-        public static void SaveSafetyJSON() => File.WriteAllText($"UserData//{Prefs.UserDataFileName}",JsonConvert.SerializeObject(Settings.availablePresets,Formatting.Indented));
+        public static void SaveSafetyJSON() => File.WriteAllText($"UserData\\{Prefs.UserDataFileName}",JsonConvert.SerializeObject(Settings.availablePresets,Formatting.Indented));
 
         public static string GetPresetName(int presetnum) => Settings.availablePresets.ActualPresets[presetnum-1].settingsPresetName;
 
@@ -35,7 +35,7 @@ namespace SafetyPresets
             }
             catch
             {
-                MelonLogger.Msg("[NotAnError] -> No presets to populate dropdowns");
+                MelonLogger.Msg("[NotAnError] -> No presets to populate dropdowns in the mod settings.");
             }
             return tempReturnList;
         }
@@ -50,22 +50,22 @@ namespace SafetyPresets
             var instanceType = RoomManager.field_Internal_Static_ApiWorldInstance_0?.InstanceType;
             yield return new WaitForSeconds(0.5f);
 
-            MelonLogger.Msg("Current Instance Type - "+instanceType.Value);
+            MelonLogger.Msg("Current Instance Type -> "+instanceType.Value);
             
             if(instanceType == ApiWorldInstance.AccessType.Public && Prefs.DoChangeInPublics)
             {
                 LoadSafetySettings(Prefs.DoChangeInPublicsPreset());
-                MelonLoader.MelonLogger.Msg("Public instance -> should be changing");
+                MelonLoader.MelonLogger.Msg("Public instance -> changing safety preset.");
             }
             if((instanceType==ApiWorldInstance.AccessType.FriendsOnly || instanceType==ApiWorldInstance.AccessType.FriendsOfGuests) && Prefs.DoChangeInFriends)
             {
                 LoadSafetySettings(Prefs.DoChangeInFriendsPreset());
-                MelonLoader.MelonLogger.Msg("Friends instance -> should be changing");
+                MelonLoader.MelonLogger.Msg("Friends instance -> changing safety preset.");
             }
             if((instanceType==ApiWorldInstance.AccessType.InviteOnly || instanceType==ApiWorldInstance.AccessType.InvitePlus) && Prefs.DoChangeInPrivates)
             {
                 LoadSafetySettings(Prefs.DoChangeInPrivatesPreset());
-                MelonLoader.MelonLogger.Msg("Private instance -> should be changing");
+                MelonLoader.MelonLogger.Msg("Private instance -> changing safety preset.");
             }
         }
 
@@ -100,6 +100,8 @@ namespace SafetyPresets
                 Settings.availablePresets.ActualPresets[presetNum-1] = presetTest;
 
                 Helpers.SaveSafetyJSON();
+
+                MelonLoader.MelonLogger.Msg($"Saved safety preset -> \"{name}\"({presetNum})");
             }
             catch (Exception e)
             {
@@ -116,7 +118,7 @@ namespace SafetyPresets
             }
             catch
             {
-                MelonLoader.MelonLogger.Msg("No saved safety settings could be loaded");
+                MelonLoader.MelonLogger.Msg("No saved safety settings could be loaded.");
                 return;
             }
 
@@ -147,6 +149,7 @@ namespace SafetyPresets
                         }
                     }
                 }
+                MelonLoader.MelonLogger.Msg($"Loaded safety preset -> \"{toLoadPreset.settingsPresetName}\" ({toLoadPreset.settingsPresetNum})");
                 fManager.Method_Public_Void_2(); // Apply Safety Settings / Reload avatars
             }
             catch (Exception e)

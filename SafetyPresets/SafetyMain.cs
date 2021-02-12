@@ -23,8 +23,6 @@ namespace SafetyPresets
             {
                 MelonCoroutines.Start(Helpers.ChangeOnInstance());
             }
-            //ShinigamiSettings.OnSceneWasLoaded(buildIndex);
         }
-
     }
 }

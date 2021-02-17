@@ -22,7 +22,7 @@ namespace SafetyPresets
 
         public static List<Classes.SettingsPreset> ValidPresetList()
         {
-            return Settings.availablePresets.ActualPresets.Where(p => p.settingRanks.Count>0).ToList();
+            return Settings.availablePresets.ActualPresets.Where(p => IsPresetValid(p.settingsPresetNum)).ToList();
         } 
 
         public static IList<(string presetNumber,string friendlyName)> ValidPresetIList(){
@@ -50,7 +50,7 @@ namespace SafetyPresets
             var instanceType = RoomManager.field_Internal_Static_ApiWorldInstance_0?.InstanceType;
             yield return new WaitForSeconds(0.5f);
 
-            MelonLogger.Msg("Current Instance Type -> "+instanceType.Value);
+            MelonLogger.Msg($"Current Instance Type -> {instanceType.Value}");
             
             if(instanceType == ApiWorldInstance.AccessType.Public && Prefs.DoChangeInPublics)
             {
@@ -101,7 +101,7 @@ namespace SafetyPresets
 
                 Helpers.SaveSafetyJSON();
 
-                MelonLoader.MelonLogger.Msg($"Saved safety preset -> \"{name}\"({presetNum})");
+                MelonLoader.MelonLogger.Msg($"Saved safety preset -> \"{name}\" ({presetNum})");
             }
             catch (Exception e)
             {

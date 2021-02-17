@@ -4,17 +4,17 @@ using System.Runtime.InteropServices;
 using MelonLoader;
 
 // MelonLoader
-[assembly: MelonInfo(typeof(SafetyPresets.Main), "SafetyPresets", "0.0.1", "死神#6938", "https://github.com/Kiokuu/SafetyPresets")]
+[assembly: MelonInfo(typeof(SafetyPresets.Main), "Safety-Presets", "0.0.2", "死神#6938", "https://github.com/Kiokuu/SafetyPresets")]
 [assembly: MelonGame("VRChat", "VRChat")]
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SafetyPresets")]
+[assembly: AssemblyTitle("Safety-Presets")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SafetyPresets")]
+[assembly: AssemblyProduct("Safety-Presets")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -37,5 +37,5 @@ using MelonLoader;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.2")]
+[assembly: AssemblyFileVersion("1.0.0.2")]

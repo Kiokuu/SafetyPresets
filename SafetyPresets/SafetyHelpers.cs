@@ -102,6 +102,8 @@ namespace SafetyPresets
                 Helpers.SaveSafetyJSON();
 
                 MelonLoader.MelonLogger.Msg($"Saved safety preset -> \"{name}\" ({presetNum})");
+
+                //Settings.UpdateSelectablePresets();
             }
             catch (Exception e)
             {

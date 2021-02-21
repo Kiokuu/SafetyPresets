@@ -1,6 +1,7 @@
 using MelonLoader;
 using System;
 using UIExpansionKit.API;
+using System.Collections;
 
 namespace SafetyPresets
 {
@@ -16,17 +17,17 @@ namespace SafetyPresets
         private const string ChangeInPrivate = "ChangeInPrivate";
         public static void SetupPrefs()
         {
-            
             MelonPreferences.CreateCategory(SettingCategory, "Safety Presets Mod");
 
             MelonPreferences.CreateEntry<string>(SettingCategory,PublicPreset,"No Preset Selected","Public Preset");
             MelonPreferences.CreateEntry<string>(SettingCategory,FriendsPreset,"No Preset Selected","Friends Preset");
             MelonPreferences.CreateEntry<string>(SettingCategory,PrivatePreset,"No Preset Selected","Private Preset");
 
-            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory,PublicPreset,Helpers.ValidPresetIList());
-            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory,FriendsPreset,Helpers.ValidPresetIList());
-            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory,PrivatePreset,Helpers.ValidPresetIList());
+            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory,PublicPreset,Settings.selectablePresets);
+            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory,FriendsPreset,Settings.selectablePresets);
+            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory,PrivatePreset,Settings.selectablePresets);
 
+            
             MelonPreferences.CreateEntry<bool>(SettingCategory, ChangeInPublic, false, "Change safety setting preset in public?");
             MelonPreferences.CreateEntry<bool>(SettingCategory, ChangeInFriends, false, "Change safety setting preset in friends?");
             MelonPreferences.CreateEntry<bool>(SettingCategory, ChangeInPrivate, false, "Change safety setting preset in privates?");

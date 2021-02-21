@@ -21,7 +21,6 @@ namespace SafetyPresets
             loadMenu.AddSimpleButton($"Load {Helpers.GetPresetName(3)}",()=>{Helpers.LoadSafetySettings(3);loadMenu.Hide();});
 
             loadMenu.AddSimpleButton("Close",()=>loadMenu.Hide());
-            
             loadMenu.Show();
         }
 
@@ -35,7 +34,7 @@ namespace SafetyPresets
             saveMenu.AddSimpleButton($"Save {Helpers.GetPresetName(3)}",()=>OpenSavePresetMenu(3));
 
             saveMenu.AddSimpleButton("Close",()=>saveMenu.Hide());
-
+        
             saveMenu.Show();
         }
 

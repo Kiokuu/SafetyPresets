@@ -13,8 +13,8 @@ namespace SafetyPresets
         {
             Settings.SetupDefaults();
             Prefs.SetupPrefs();
-            UI.SetupUIX();
             CompatChecks.CheckEnvironment();
+            UI.SetupUIX();
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)

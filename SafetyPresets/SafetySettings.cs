@@ -7,6 +7,7 @@ namespace SafetyPresets
 {
     internal class Settings{
         public static Classes.Presets availablePresets;
+        public static IList<(string,string)> selectablePresets = new List<(string,string)>{};
 
         public static void SetupDefaults()
         {
@@ -21,6 +22,7 @@ namespace SafetyPresets
             }
 
             // Try loading available presets, if failed, generate blank presets
+            
             try
             {
                 availablePresets = JsonConvert.DeserializeObject<Classes.Presets>(File.ReadAllText($"UserData\\{Prefs.UserDataFileName}"));
@@ -36,6 +38,8 @@ namespace SafetyPresets
                 }; 
                 availablePresets = new Classes.Presets(test);
             }
+
+            Helpers.SaveSafetyJSON();
 
         }
     }

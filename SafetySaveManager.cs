@@ -224,12 +224,20 @@ namespace SafetyPresets
                 return false;
 
             GameObject SafetyMatrixToggles = GameObject.Find("UserInterface/MenuContent/Screens/Settings_Safety/_SafetyMatrix/_Toggles");
+            GameObject UserLevelSelects = GameObject.Find("UserInterface/MenuContent/Screens/Settings_Safety/_Buttons_UserLevel");
 
+            Il2CppArrayBase<UiSafetyRankToggle> LevelSelects = UserLevelSelects.GetComponentsInChildren<UiSafetyRankToggle>();
             Il2CppArrayBase<UiSafetyFeatureToggle> SafetyToggles = SafetyMatrixToggles.GetComponentsInChildren<UiSafetyFeatureToggle>();
 
             foreach (UserSocialClass SocialClass in Enum.GetValues(typeof(UserSocialClass)))
             {
                 // Dirty workaround for DBS (Patch was inconsistent, and this is literally just the selected social class)
+                foreach (UiSafetyRankToggle SafetyRankToggle in LevelSelects)
+                {
+                    if (SafetyRankToggle.field_Public_UserSocialClass_0 == SocialClass)
+                        SafetyRankToggle.GetComponent<Toggle>().isOn = true;
+                }
+
                 SafetyPage.field_Private_UserSocialClass_0 = SocialClass;
 
                 foreach (UiSafetyFeatureToggle SafetyFeatureToggle in SafetyToggles)
@@ -307,6 +315,8 @@ namespace SafetyPresets
 
                 SavedSafetySettings.Add(SavedSafetySetting);
             }
+
+            SafetyPreferences.ReloadUIXOptions();
 
             File.WriteAllText("UserData/SafetyPresets.json", JsonConvert.SerializeObject(SavedSafetySettings, Formatting.Indented));
         }

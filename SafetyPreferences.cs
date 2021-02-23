@@ -24,13 +24,18 @@ namespace SafetyPresets
             OurCategory.CreateEntry(FriendsPreset, "No Preset Selected", "Friends Preset");
             OurCategory.CreateEntry(PrivatePreset, "No Preset Selected", "Private Preset");
 
-            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory, PublicPreset, SafetySaveManager.SelectableSafetySettings);
-            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory, FriendsPreset, SafetySaveManager.SelectableSafetySettings);
-            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory, PrivatePreset, SafetySaveManager.SelectableSafetySettings);
+            ReloadUIXOptions();
 
             OurCategory.CreateEntry(ChangeInPublic, false, "Change safety setting preset in public?");
             OurCategory.CreateEntry(ChangeInFriends, false, "Change safety setting preset in friends?");
             OurCategory.CreateEntry(ChangeInPrivate, false, "Change safety setting preset in privates?");
+        }
+
+        public static void ReloadUIXOptions()
+        {
+            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory, PublicPreset, SafetySaveManager.SelectableSafetySettings);
+            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory, FriendsPreset, SafetySaveManager.SelectableSafetySettings);
+            ExpansionKitApi.RegisterSettingAsStringEnum(SettingCategory, PrivatePreset, SafetySaveManager.SelectableSafetySettings);
         }
 
         public static bool DoChangeInPublics => OurCategory.GetEntry<bool>(ChangeInPublic).Value;

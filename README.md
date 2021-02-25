@@ -10,7 +10,7 @@ The purpose of this [MelonLoader](https://github.com/LavaGang/MelonLoader) VRCha
 * Instance Type Based Safety Settings (Public, Friends, Private).
 
 ## Compatability
-* Currently working on builds 1048(Current) and 1052 (Open Beta).
+* Currently working on builds 1054(Current)
 
 
 ## Installation

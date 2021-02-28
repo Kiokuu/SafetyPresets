@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-
+using System.Linq;
 namespace SafetyPresets
 {
     internal class Settings{
@@ -26,6 +26,7 @@ namespace SafetyPresets
             try
             {
                 availablePresets = JsonConvert.DeserializeObject<Classes.Presets>(File.ReadAllText($"UserData\\{Prefs.UserDataFileName}"));
+                
             }
             catch
             {
@@ -40,7 +41,15 @@ namespace SafetyPresets
             }
 
             Helpers.SaveSafetyJSON();
+            UpdateSelectablePresets();
+        }
 
+        public static void UpdateSelectablePresets(){
+            // Update UIX String Enum properly (You can't just replace the list)
+            selectablePresets.Clear();
+            foreach(var presetInList in Helpers.ValidPresetIList()){
+                selectablePresets.Add(presetInList);
+            }
         }
     }
 }

@@ -16,17 +16,9 @@ namespace SafetyPresets
                 Directory.CreateDirectory("UserData");
             }
 
-            if (!File.Exists($"UserData\\{Prefs.UserDataFileName}"))
-            {
-                File.Create($"UserData\\{Prefs.UserDataFileName}");
-            }
-
-            // Try loading available presets, if failed, generate blank presets
-            
             try
             {
-                availablePresets = JsonConvert.DeserializeObject<Classes.Presets>(File.ReadAllText($"UserData\\{Prefs.UserDataFileName}"));
-                
+                availablePresets = JsonConvert.DeserializeObject<Classes.Presets>(File.ReadAllText($"UserData\\{Prefs.UserDataFileName}")); 
             }
             catch
             {

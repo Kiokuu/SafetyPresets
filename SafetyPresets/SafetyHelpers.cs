@@ -3,7 +3,10 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+
 using Newtonsoft.Json;
+
 using UnityEngine;
 using MelonLoader;
 using VRC;
@@ -23,7 +26,21 @@ namespace SafetyPresets
         public static List<Classes.SettingsPreset> ValidPresetList()
         {
             return Settings.availablePresets.ActualPresets.Where(p => IsPresetValid(p.settingsPresetNum)).ToList();
-        } 
+        }
+
+        private static MethodBase applySafety;
+
+        public static void DoXrefMagic()
+        {
+            MelonLogger.Msg("Beginning Xref scanning");
+            applySafety = typeof(FeaturePermissionManager).GetMethods().Where(
+                methodBase => methodBase.Name.StartsWith("Method_Public_Void_")
+                && !methodBase.Name.Contains("PDM") 
+                && SafetyXref.CheckMethod(methodBase, "Safety Settings Changed to: "))
+                .First();
+
+            MelonLogger.Msg($"OnTrustSettingsChanged determined to be: {applySafety.Name}");
+        }
 
         public static IList<(string presetNumber,string friendlyName)> ValidPresetIList(){
             List<(string,string)> tempReturnList = new List<(string, string)>();
@@ -57,12 +74,12 @@ namespace SafetyPresets
                 LoadSafetySettings(Prefs.DoChangeInPublicsPreset());
                 MelonLoader.MelonLogger.Msg("Public instance -> changing safety preset.");
             }
-            if((instanceType==ApiWorldInstance.AccessType.FriendsOnly || instanceType==ApiWorldInstance.AccessType.FriendsOfGuests) && Prefs.DoChangeInFriends)
+            if(instanceType==ApiWorldInstance.AccessType.FriendsOfGuests && Prefs.DoChangeInFriends)
             {
                 LoadSafetySettings(Prefs.DoChangeInFriendsPreset());
                 MelonLoader.MelonLogger.Msg("Friends instance -> changing safety preset.");
             }
-            if((instanceType==ApiWorldInstance.AccessType.InviteOnly || instanceType==ApiWorldInstance.AccessType.InvitePlus) && Prefs.DoChangeInPrivates)
+            if((instanceType == ApiWorldInstance.AccessType.FriendsOnly || instanceType == ApiWorldInstance.AccessType.InviteOnly || instanceType == ApiWorldInstance.AccessType.InvitePlus) && Prefs.DoChangeInPrivates)
             {
                 LoadSafetySettings(Prefs.DoChangeInPrivatesPreset());
                 MelonLoader.MelonLogger.Msg("Private instance -> changing safety preset.");
@@ -73,8 +90,9 @@ namespace SafetyPresets
         {
             try
             {
+                
                 FeaturePermissionManager fManager = GameObject.Find("_Application").GetComponent<FeaturePermissionManager>();
-                fManager.Method_Public_Void_2(); // Apply current safety settings
+                applySafety.Invoke(FeaturePermissionManager.prop_FeaturePermissionManager_0, new object[] { } );
                 List<Classes.RankSetting> rankSettingList = new List<Classes.RankSetting>{};
                 foreach(Il2CppSystem.Collections.Generic.KeyValuePair<UserSocialClass,FeaturePermissionSet> rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0)
                 {
@@ -152,7 +170,7 @@ namespace SafetyPresets
                     }
                 }
                 MelonLoader.MelonLogger.Msg($"Loaded safety preset -> \"{toLoadPreset.settingsPresetName}\" ({toLoadPreset.settingsPresetNum})");
-                fManager.Method_Public_Void_2(); // Apply Safety Settings / Reload avatars
+                applySafety.Invoke(FeaturePermissionManager.prop_FeaturePermissionManager_0, new object[] { });
             }
             catch (Exception e)
             {

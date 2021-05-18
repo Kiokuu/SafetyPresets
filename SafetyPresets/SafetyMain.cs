@@ -13,6 +13,7 @@ namespace SafetyPresets
         {
             Settings.SetupDefaults();
             Prefs.SetupPrefs();
+            Helpers.DoXrefMagic();
             CompatChecks.CheckEnvironment();
             UI.SetupUIX();
         }

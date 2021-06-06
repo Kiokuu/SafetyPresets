@@ -10,14 +10,14 @@ The purpose of this [MelonLoader](https://github.com/LavaGang/MelonLoader) VRCha
 * Instance Type Based Safety Settings (Public, Friends, Private).
 
 ## Compatability
-* Currently working on build 1095(Current)
+* Currently working on build 1101
 
 ## Installation
 * Download [UIExpansionKit](https://github.com/knah/VRCMods/) and place the compiled DLL into the "VRChat/Mods" folder.
 * Download the [latest release](https://github.com/Kiokuu/SafetyPresets/releases/latest) of the compiled DLL and place into the "VRChat/Mods" folder.
 
 ## Known Issues
-* The preset choices for instance type based loading will not update until game restart.
+- Currently none.
 
 ## Building
 To build this mod, reference the following libraries from MelonLoader/Managed after assembly generation;
@@ -44,4 +44,4 @@ Install the following package;
 Finally, build in your favourite IDE.
 
 ## Credits
-Used [Bens](https://github.com/BenjaminZehowlt) XRef functions, along with recieving tons of general help.
+Used [Bens](https://github.com/BenjaminZehowlt) XRef functions, along with a rewrite of the mod

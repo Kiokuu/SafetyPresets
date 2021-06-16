@@ -42,7 +42,7 @@ namespace SafetyPresets
         {
             var savePresetMenu = ExpansionKitApi.CreateCustomFullMenuPopup(LayoutDescription.WideSlimList);
             string defaultText = Helpers.GetPresetName(presetNumber);
-            savePresetMenu.AddSimpleButton("Save this preset",()=>{savePresetMenu.Hide(); UIExpansionKit.API.BuiltinUiUtils.ShowInputPopup("Enter a preset name",defaultText,InputField.InputType.Standard,false,"Save",(x, kc, txt)=>Helpers.SaveSafetySettings(presetNumber,x));});
+            savePresetMenu.AddSimpleButton("Save this preset",()=>{savePresetMenu.Hide(); BuiltinUiUtils.ShowInputPopup("Enter a preset name",defaultText,InputField.InputType.Standard,false,"Save",(x, kc, txt)=>Helpers.SaveSafetySettings(presetNumber,x));});
 
             savePresetMenu.Show();
         }

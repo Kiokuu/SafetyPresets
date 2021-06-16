@@ -59,30 +59,30 @@ namespace SafetyPresets
 
         public static IEnumerator ChangeOnInstance()
         {
-            while(RoomManager.field_Internal_Static_ApiWorldInstance_0?.InstanceType==null)
+            while(RoomManager.field_Internal_Static_ApiWorldInstance_0?.type == null)
             {
                 yield return new WaitForSeconds(0.5f);
             }
 
-            var instanceType = RoomManager.field_Internal_Static_ApiWorldInstance_0?.InstanceType;
+            var instanceType = RoomManager.field_Internal_Static_ApiWorldInstance_0?.type;
             yield return new WaitForSeconds(0.5f);
 
             MelonLogger.Msg($"Current Instance Type -> {instanceType.Value}");
             
-            if(instanceType == ApiWorldInstance.AccessType.Public && Prefs.DoChangeInPublics)
+            if(instanceType == InstanceAccessType.Public && Prefs.DoChangeInPublics)
             {
                 LoadSafetySettings(Prefs.DoChangeInPublicsPreset());
-                MelonLoader.MelonLogger.Msg("Public instance -> changing safety preset.");
+                MelonLogger.Msg("Public instance -> changing safety preset.");
             }
-            if(instanceType==ApiWorldInstance.AccessType.FriendsOfGuests && Prefs.DoChangeInFriends)
+            if(instanceType==InstanceAccessType.FriendsOfGuests && Prefs.DoChangeInFriends)
             {
                 LoadSafetySettings(Prefs.DoChangeInFriendsPreset());
-                MelonLoader.MelonLogger.Msg("Friends instance -> changing safety preset.");
+                MelonLogger.Msg("Friends instance -> changing safety preset.");
             }
-            if((instanceType == ApiWorldInstance.AccessType.FriendsOnly || instanceType == ApiWorldInstance.AccessType.InviteOnly || instanceType == ApiWorldInstance.AccessType.InvitePlus) && Prefs.DoChangeInPrivates)
+            if((instanceType == InstanceAccessType.FriendsOnly || instanceType == InstanceAccessType.InviteOnly || instanceType == InstanceAccessType.InvitePlus) && Prefs.DoChangeInPrivates)
             {
                 LoadSafetySettings(Prefs.DoChangeInPrivatesPreset());
-                MelonLoader.MelonLogger.Msg("Private instance -> changing safety preset.");
+                MelonLogger.Msg("Private instance -> changing safety preset.");
             }
         }
 
@@ -119,7 +119,7 @@ namespace SafetyPresets
 
                 Helpers.SaveSafetyJSON();
 
-                MelonLoader.MelonLogger.Msg($"Saved safety preset -> \"{name}\" ({presetNum})");
+                MelonLogger.Msg($"Saved safety preset -> \"{name}\" ({presetNum})");
 
                 Settings.UpdateSelectablePresets();
             }
@@ -138,13 +138,13 @@ namespace SafetyPresets
             }
             catch
             {
-                MelonLoader.MelonLogger.Msg("No saved safety settings could be loaded.");
+                MelonLogger.Msg("No saved safety settings could be loaded.");
                 return;
             }
 
             if(!IsPresetValid(toLoadPreset.settingsPresetNum))
             {
-                MelonLoader.MelonLogger.Msg("This preset is an empty default. Nothing to load here.");
+                MelonLogger.Msg("This preset is an empty default. Nothing to load here.");
                 return;
             }
 
@@ -169,7 +169,7 @@ namespace SafetyPresets
                         }
                     }
                 }
-                MelonLoader.MelonLogger.Msg($"Loaded safety preset -> \"{toLoadPreset.settingsPresetName}\" ({toLoadPreset.settingsPresetNum})");
+                MelonLogger.Msg($"Loaded safety preset -> \"{toLoadPreset.settingsPresetName}\" ({toLoadPreset.settingsPresetNum})");
                 applySafety.Invoke(FeaturePermissionManager.prop_FeaturePermissionManager_0, new object[] { });
             }
             catch (Exception e)

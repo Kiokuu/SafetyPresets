@@ -10,7 +10,8 @@ The purpose of this [MelonLoader](https://github.com/LavaGang/MelonLoader) VRCha
 * Instance Type Based Safety Settings (Public, Friends, Private).
 
 ## Compatability
-* Currently working on build 1095(Current)
+* Currently working on build 1106(Current)
+* This mod was made for Melonloader 0.4.0
 
 ## Installation
 * Download [UIExpansionKit](https://github.com/knah/VRCMods/) and place the compiled DLL into the "VRChat/Mods" folder.

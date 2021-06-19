@@ -49,7 +49,6 @@ namespace SafetyPresets
             Int32.TryParse(MelonPreferences.GetEntryValue<string>(SettingCategory, FriendsPreset),out PresetInt);
             return PresetInt;
         }
-
         public static int DoChangeInPrivatesPreset(){
             int PresetInt = 1;
             Int32.TryParse(MelonPreferences.GetEntryValue<string>(SettingCategory, PrivatePreset),out PresetInt);

@@ -23,12 +23,7 @@ namespace SafetyPresets
             catch
             {
                 MelonLoader.MelonLogger.Msg("No available presets have been saved - thats ok!");
-                List<Classes.SettingsPreset> test = new List<Classes.SettingsPreset>()
-                {
-                    new Classes.SettingsPreset(1,"Preset1<Empty>"),
-                    new Classes.SettingsPreset(2,"Preset2<Empty>"),
-                    new Classes.SettingsPreset(3,"Preset3<Empty>") 
-                }; 
+                List<Classes.SettingsPreset> test = new List<Classes.SettingsPreset>(){}; 
                 availablePresets = new Classes.Presets(test);
             }
 

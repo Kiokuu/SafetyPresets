@@ -17,12 +17,37 @@ namespace SafetyPresets
 {
     public static class Helpers
     {
-        public static void SaveSafetyJSON() => File.WriteAllText($"UserData\\{Prefs.UserDataFileName}",JsonConvert.SerializeObject(Settings.availablePresets,Formatting.Indented));
+        public static void SaveSafetyJSON() => File.WriteAllText($"UserData\\{Prefs.UserDataFileName}", JsonConvert.SerializeObject(Settings.availablePresets, Formatting.Indented));
 
-        public static string GetPresetName(int presetnum) => Settings.availablePresets.ActualPresets[presetnum-1].settingsPresetName;
+        public static string GetPresetName(int presetnum)
+        {
+            try
+            {
+                return Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetnum)].settingsPresetName;
+            }
+            catch
+            {
+                return "New Preset";
+            }
+        }
 
-        public static bool IsPresetValid(int presetnum) => (Settings.availablePresets.ActualPresets[presetnum-1].settingRanks != null && Settings.availablePresets.ActualPresets[presetnum-1].settingRanks.Count>0);
+        public static int GetActualPresetFromPresetNum(int presetnum)
+        {
+            return Settings.availablePresets.ActualPresets.FindIndex(sss => sss.settingsPresetNum == presetnum);
+        }
 
+        public static bool IsPresetValid(int presetnum) => (Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetnum)].settingRanks != null && Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetnum)].settingRanks.Count > 0);
+
+        public static int NextAvailablePresetNum() {
+            try
+            {
+                return Settings.availablePresets.ActualPresets[Settings.availablePresets.ActualPresets.Count - 1].settingsPresetNum + 1;
+            }
+            catch // probably have 0 presets
+            {
+                return 1;
+            }
+        }
         public static List<Classes.SettingsPreset> ValidPresetList()
         {
             return Settings.availablePresets.ActualPresets.Where(p => IsPresetValid(p.settingsPresetNum)).ToList();
@@ -114,8 +139,14 @@ namespace SafetyPresets
 
                 Classes.SettingsPreset presetTest = new Classes.SettingsPreset(presetNum,name);
                 presetTest.settingRanks = rankSettingList;
-
-                Settings.availablePresets.ActualPresets[presetNum-1] = presetTest;
+                try
+                {
+                    Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetNum)] = presetTest; 
+                }
+                catch
+                {
+                    Settings.availablePresets.ActualPresets.Add(presetTest);
+                }
 
                 Helpers.SaveSafetyJSON();
 
@@ -134,7 +165,7 @@ namespace SafetyPresets
             Classes.SettingsPreset toLoadPreset;
             try
             {
-                toLoadPreset = Settings.availablePresets.ActualPresets.ElementAt(presetNum-1);
+                toLoadPreset = Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetNum)];
             }
             catch
             {
@@ -176,6 +207,13 @@ namespace SafetyPresets
             {
                 MelonLoader.MelonLogger.Error(e.StackTrace);
             }
+        }
+
+        public static void DeleteSafetySettings(int presetNum)
+        {
+            Settings.availablePresets.ActualPresets.Remove(Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetNum)]);
+            Helpers.SaveSafetyJSON();
+            Settings.UpdateSelectablePresets();
         }
     }
 }

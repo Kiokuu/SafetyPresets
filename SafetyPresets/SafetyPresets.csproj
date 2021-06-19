@@ -35,32 +35,32 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Il2Cppmscorlib.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\Il2Cppmscorlib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Il2CppSystem.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\Il2CppSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>..\..\Libs\Managed\Il2CppSystem.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MelonLoader, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MelonLoader.dll</HintPath>
+      <HintPath>..\..\Libs\Core\MelonLoader.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libs\Managed\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -71,37 +71,37 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UIExpansionKit, Version=0.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\UIExpansionKit.dll</HintPath>
+      <HintPath>..\..\Libs\Optional\UIExpansionKit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnhollowerBaseLib, Version=0.4.13.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\UnhollowerBaseLib.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\UnhollowerBaseLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnhollowerRuntimeLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\UnhollowerRuntimeLib.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\UnhollowerRuntimeLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\UnityEngine.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VRCCore-Standalone, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\VRCCore-Standalone.dll</HintPath>
+      <HintPath>..\..\Libs\Managed\VRCCore-Standalone.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

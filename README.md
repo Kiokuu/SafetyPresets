@@ -6,11 +6,11 @@ The purpose of this [MelonLoader](https://github.com/LavaGang/MelonLoader) VRCha
 * [UIExpansionKit](https://github.com/knah/VRCMods/) - Menus + Settings.
 
 ## Features
-* Custom Safety Settings Loading / Saving (Currently 3 presets).
+* Custom Safety Settings Presets Loading / Saving / Deleting.
 * Instance Type Based Safety Settings (Public, Friends, Private).
 
 ## Compatability
-* Currently working on build 1106(Current)
+* Currently working on build 1108(Current)
 * This mod was made for Melonloader 0.4.0
 
 ## Installation

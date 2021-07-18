@@ -53,27 +53,30 @@ namespace SafetyPresets
             return Settings.availablePresets.ActualPresets.Where(p => IsPresetValid(p.settingsPresetNum)).ToList();
         }
 
+        public static bool AreWeUsingCustomSafetySettings()
+        {
+            var safetyLevelValue = VRCInputManager.field_Private_Static_Dictionary_2_String_Object_0["setting_SafetyLevel"].Unbox<int>();
+            if(safetyLevelValue!=5) MelonLogger.Msg("Not touching safety settings as they are not custom!");
+            return safetyLevelValue == 5;
+        }
+        
         private static MethodBase applySafety;
-
         public static void DoXrefMagic()
         {
             MelonLogger.Msg("Beginning Xref scanning");
-            applySafety = typeof(FeaturePermissionManager).GetMethods().Where(
-                methodBase => methodBase.Name.StartsWith("Method_Public_Void_")
-                && !methodBase.Name.Contains("PDM") 
-                && SafetyXref.CheckMethod(methodBase, "Safety Settings Changed to: "))
-                .First();
-
+            applySafety = typeof(FeaturePermissionManager).GetMethods()
+                .First(methodBase => methodBase.Name.StartsWith("Method_Public_Void_")
+                                     && !methodBase.Name.Contains("PDM") 
+                                     && SafetyXref.CheckMethod(methodBase, "Safety Settings Changed to: "));
+            
             MelonLogger.Msg($"OnTrustSettingsChanged determined to be: {applySafety.Name}");
         }
 
         public static IList<(string presetNumber,string friendlyName)> ValidPresetIList(){
-            List<(string,string)> tempReturnList = new List<(string, string)>();
+            var tempReturnList = new List<(string, string)>();
             try
             {
-                foreach(Classes.SettingsPreset preset in ValidPresetList()){
-                    tempReturnList.Add((preset.settingsPresetNum.ToString(),preset.settingsPresetName));
-                }    
+                tempReturnList.AddRange(ValidPresetList().Select(preset => (preset.settingsPresetNum.ToString(), preset.settingsPresetName)));
             }
             catch
             {
@@ -99,12 +102,12 @@ namespace SafetyPresets
                 LoadSafetySettings(Prefs.DoChangeInPublicsPreset());
                 MelonLogger.Msg("Public instance -> changing safety preset.");
             }
-            if(instanceType==InstanceAccessType.FriendsOfGuests && Prefs.DoChangeInFriends)
+            else if(instanceType==InstanceAccessType.FriendsOfGuests && Prefs.DoChangeInFriends)
             {
                 LoadSafetySettings(Prefs.DoChangeInFriendsPreset());
                 MelonLogger.Msg("Friends instance -> changing safety preset.");
             }
-            if((instanceType == InstanceAccessType.FriendsOnly || instanceType == InstanceAccessType.InviteOnly || instanceType == InstanceAccessType.InvitePlus) && Prefs.DoChangeInPrivates)
+            else if(Prefs.DoChangeInPrivates)
             {
                 LoadSafetySettings(Prefs.DoChangeInPrivatesPreset());
                 MelonLogger.Msg("Private instance -> changing safety preset.");
@@ -113,13 +116,14 @@ namespace SafetyPresets
 
         public static void SaveSafetySettings(int presetNum,string name)
         {
+            if (!AreWeUsingCustomSafetySettings()) return;
             try
             {
                 
-                FeaturePermissionManager fManager = GameObject.Find("_Application").GetComponent<FeaturePermissionManager>();
+                var fManager = GameObject.Find("_Application").GetComponent<FeaturePermissionManager>();
                 applySafety.Invoke(FeaturePermissionManager.prop_FeaturePermissionManager_0, new object[] { } );
-                List<Classes.RankSetting> rankSettingList = new List<Classes.RankSetting>{};
-                foreach(Il2CppSystem.Collections.Generic.KeyValuePair<UserSocialClass,FeaturePermissionSet> rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0)
+                var rankSettingList = new List<Classes.RankSetting>{};
+                foreach(var rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0)
                 {
 
                     Dictionary<string,bool> tempSettings = new Dictionary<string,bool>
@@ -133,12 +137,11 @@ namespace SafetyPresets
                         {"AnimationPermission",rankPerm.Value.field_Public_Boolean_6}
                     };
 
-                    Classes.RankSetting tempRankSetting = new Classes.RankSetting(rankPerm.Key,tempSettings);
+                    var tempRankSetting = new Classes.RankSetting(rankPerm.Key,tempSettings);
                     rankSettingList.Add(tempRankSetting);
                 }
 
-                Classes.SettingsPreset presetTest = new Classes.SettingsPreset(presetNum,name);
-                presetTest.settingRanks = rankSettingList;
+                var presetTest = new Classes.SettingsPreset(presetNum, name) {settingRanks = rankSettingList};
                 try
                 {
                     Settings.availablePresets.ActualPresets[GetActualPresetFromPresetNum(presetNum)] = presetTest; 
@@ -162,6 +165,7 @@ namespace SafetyPresets
 
         public static void LoadSafetySettings(int presetNum)
         {
+            if (!AreWeUsingCustomSafetySettings()) return;
             Classes.SettingsPreset toLoadPreset;
             try
             {
@@ -184,20 +188,17 @@ namespace SafetyPresets
                 FeaturePermissionManager fManager = GameObject.Find("_Application").GetComponent<FeaturePermissionManager>();
                 foreach(Il2CppSystem.Collections.Generic.KeyValuePair<UserSocialClass,FeaturePermissionSet> rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0)
                 {
-
                     FeaturePermissionSet test = rankPerm.Value;
 
-                    foreach(Classes.RankSetting rSetting in toLoadPreset.settingRanks)
+                    foreach (var rSetting in toLoadPreset.settingRanks.Where(rSetting => rSetting.UserRank == rankPerm.Key))
                     {
-                        if(rSetting.UserRank == rankPerm.Key){
-                            test.field_Public_Boolean_0 = rSetting.UserSettings["SpeakingPermission"]; // Voice
-                            test.field_Public_Boolean_1 = rSetting.UserSettings["AvatarPermission"]; // Avatar
-                            test.field_Public_Boolean_2 = rSetting.UserSettings["UserIconPermission"]; // UserIcons
-                            test.field_Public_Boolean_3 = rSetting.UserSettings["AudioPermission"]; // Audio
-                            test.field_Public_Boolean_4 = rSetting.UserSettings["ParticlesLightsPermission"]; // Light&Particles
-                            test.field_Public_Boolean_5 = rSetting.UserSettings["ShaderPermission"]; // Shaders
-                            test.field_Public_Boolean_6 = rSetting.UserSettings["AnimationPermission"]; // CustomAnimations
-                        }
+                        test.field_Public_Boolean_0 = rSetting.UserSettings["SpeakingPermission"]; // Voice
+                        test.field_Public_Boolean_1 = rSetting.UserSettings["AvatarPermission"]; // Avatar
+                        test.field_Public_Boolean_2 = rSetting.UserSettings["UserIconPermission"]; // UserIcons
+                        test.field_Public_Boolean_3 = rSetting.UserSettings["AudioPermission"]; // Audio
+                        test.field_Public_Boolean_4 = rSetting.UserSettings["ParticlesLightsPermission"]; // Light&Particles
+                        test.field_Public_Boolean_5 = rSetting.UserSettings["ShaderPermission"]; // Shaders
+                        test.field_Public_Boolean_6 = rSetting.UserSettings["AnimationPermission"]; // CustomAnimations
                     }
                 }
                 MelonLogger.Msg($"Loaded safety preset -> \"{toLoadPreset.settingsPresetName}\" ({toLoadPreset.settingsPresetNum})");

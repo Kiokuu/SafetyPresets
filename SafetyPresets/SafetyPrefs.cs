@@ -1,7 +1,6 @@
 using MelonLoader;
 using System;
 using UIExpansionKit.API;
-using System.Collections;
 
 namespace SafetyPresets
 {

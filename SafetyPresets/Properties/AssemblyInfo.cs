@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using MelonLoader;
 
 // MelonLoader
-[assembly: MelonInfo(typeof(SafetyPresets.Main), "Safety-Presets", "0.0.8", "Yato#4499 + Benji", "https://github.com/Kiokuu/SafetyPresets")]
+[assembly: MelonInfo(typeof(SafetyPresets.Main), "Safety-Presets", "0.0.9", "Yato#4499 + Benji", "https://github.com/Kiokuu/SafetyPresets")]
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonColor(System.ConsoleColor.DarkGreen)]
 
@@ -37,5 +37,5 @@ using MelonLoader;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.8")]
-[assembly: AssemblyFileVersion("1.0.0.8")]
+[assembly: AssemblyVersion("1.0.0.9")]
+[assembly: AssemblyFileVersion("1.0.0.9")]

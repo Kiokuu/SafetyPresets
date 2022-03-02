@@ -123,18 +123,18 @@ namespace SafetyPresets
                 var fManager = GameObject.Find("_Application").GetComponent<FeaturePermissionManager>();
                 applySafety.Invoke(FeaturePermissionManager.prop_FeaturePermissionManager_0, new object[] { } );
                 var rankSettingList = new List<Classes.RankSetting>{};
-                foreach(var rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0)
+                foreach(var rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_ObjectPublicStBoBoStBoBoBoBoBoBoUnique_0) // .field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0
                 {
 
                     Dictionary<string,bool> tempSettings = new Dictionary<string,bool>
                     {
-                        {"SpeakingPermission",rankPerm.Value.field_Public_Boolean_0},
-                        {"AvatarPermission",rankPerm.Value.field_Public_Boolean_1},
-                        {"UserIconPermission",rankPerm.Value.field_Public_Boolean_2},
-                        {"AudioPermission",rankPerm.Value.field_Public_Boolean_3},
-                        {"ParticlesLightsPermission",rankPerm.Value.field_Public_Boolean_4},
-                        {"ShaderPermission",rankPerm.Value.field_Public_Boolean_5},
-                        {"AnimationPermission",rankPerm.Value.field_Public_Boolean_6}
+                        {"SpeakingPermission",rankPerm.Value.field_Private_Boolean_0},
+                        {"AvatarPermission",rankPerm.Value.field_Private_Boolean_1},
+                        {"UserIconPermission",rankPerm.Value.field_Private_Boolean_2},
+                        {"AudioPermission",rankPerm.Value.field_Private_Boolean_3},
+                        {"ParticlesLightsPermission",rankPerm.Value.field_Private_Boolean_4},
+                        {"ShaderPermission",rankPerm.Value.field_Private_Boolean_5},
+                        {"AnimationPermission",rankPerm.Value.field_Private_Boolean_6}
                     };
 
                     var tempRankSetting = new Classes.RankSetting(rankPerm.Key,tempSettings);
@@ -186,19 +186,19 @@ namespace SafetyPresets
             try
             {
                 FeaturePermissionManager fManager = GameObject.Find("_Application").GetComponent<FeaturePermissionManager>();
-                foreach(Il2CppSystem.Collections.Generic.KeyValuePair<UserSocialClass,FeaturePermissionSet> rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_FeaturePermissionSet_0)
+                foreach(Il2CppSystem.Collections.Generic.KeyValuePair<UserSocialClass, ObjectPublicStBoBoStBoBoBoBoBoBoUnique> rankPerm in fManager.field_Private_Dictionary_2_UserSocialClass_ObjectPublicStBoBoStBoBoBoBoBoBoUnique_0)
                 {
-                    FeaturePermissionSet test = rankPerm.Value;
+                    ObjectPublicStBoBoStBoBoBoBoBoBoUnique test = rankPerm.Value;
 
                     foreach (var rSetting in toLoadPreset.settingRanks.Where(rSetting => rSetting.UserRank == rankPerm.Key))
                     {
-                        test.field_Public_Boolean_0 = rSetting.UserSettings["SpeakingPermission"]; // Voice
-                        test.field_Public_Boolean_1 = rSetting.UserSettings["AvatarPermission"]; // Avatar
-                        test.field_Public_Boolean_2 = rSetting.UserSettings["UserIconPermission"]; // UserIcons
-                        test.field_Public_Boolean_3 = rSetting.UserSettings["AudioPermission"]; // Audio
-                        test.field_Public_Boolean_4 = rSetting.UserSettings["ParticlesLightsPermission"]; // Light&Particles
-                        test.field_Public_Boolean_5 = rSetting.UserSettings["ShaderPermission"]; // Shaders
-                        test.field_Public_Boolean_6 = rSetting.UserSettings["AnimationPermission"]; // CustomAnimations
+                        test.field_Private_Boolean_0 = rSetting.UserSettings["SpeakingPermission"]; // Voice
+                        test.field_Private_Boolean_1 = rSetting.UserSettings["AvatarPermission"]; // Avatar
+                        test.field_Private_Boolean_2 = rSetting.UserSettings["UserIconPermission"]; // UserIcons
+                        test.field_Private_Boolean_3 = rSetting.UserSettings["AudioPermission"]; // Audio
+                        test.field_Private_Boolean_4 = rSetting.UserSettings["ParticlesLightsPermission"]; // Light&Particles
+                        test.field_Private_Boolean_5 = rSetting.UserSettings["ShaderPermission"]; // Shaders
+                        test.field_Private_Boolean_6 = rSetting.UserSettings["AnimationPermission"]; // CustomAnimations
                     }
                 }
                 MelonLogger.Msg($"Loaded safety preset -> \"{toLoadPreset.settingsPresetName}\" ({toLoadPreset.settingsPresetNum})");
